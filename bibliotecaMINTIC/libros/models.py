@@ -7,7 +7,6 @@ from django.db import models
 class cat_editoriales(models.Model):
     cod_editorial = models.IntegerField(primary_key=True)
     des_editorial = models.CharField(max_length=255)
-   
 
 
 class cat_autores(models.Model):

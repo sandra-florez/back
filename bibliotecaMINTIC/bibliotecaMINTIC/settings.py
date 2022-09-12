@@ -74,12 +74,25 @@ WSGI_APPLICATION = 'bibliotecaMINTIC.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd5sm4hhcvbhhav',
+        'USER':'mjdqtgexoxauzj',
+        'PASSWORD':'1c4d9afe4470118855653db065ec7b6d29d90d2d3245c3fc60a5fc57a63388ce',
+        'HOST':'ec2-54-80-122-11.compute-1.amazonaws.com',
+        'PORT':'5432'
     }
 }
+
+
 
 
 # Password validation
