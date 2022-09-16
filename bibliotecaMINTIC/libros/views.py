@@ -9,8 +9,14 @@ from .models import *
 ########################################################################
 #                       Vista Principal Libros                         #
 ########################################################################
-def principal(request):
-    return HttpResponse("Aquí va la vista principal de Libros!")
+def libros(request):
+    if(request.method == "GET"):        
+        try:
+            return HttpResponse("Aquí va la vista principal de Libros!")
+        except:
+            return HttpResponseBadRequest(["GET"], "Error en retorno de datos")
+    else:        
+        return HttpResponseNotAllowed(["GET"], "Método invalido")
 
 ########################################################################
 #                       Métodos POST Libros                            #
@@ -23,7 +29,7 @@ def agregarLibroCompleto(request):
             print(dato)
             
             autor = cat_autores(
-                cod_autor = dato["cod_autor"],
+                # cod_autor = dato["cod_autor"],
                 des_autor = dato["des_autor"]
             )
             autor.save()
@@ -31,7 +37,7 @@ def agregarLibroCompleto(request):
             print("AUTORES")
 
             editorial = cat_editoriales(
-                cod_editorial = dato["cod_editorial"],
+                # cod_editorial = dato["cod_editorial"],
                 des_editorial = dato["des_editorial"]
             )
             editorial.save()
@@ -39,7 +45,7 @@ def agregarLibroCompleto(request):
             print("EDITORIAL")
 
             libros = cat_libros(
-                cod_libro = dato["cod_libro"],
+                # cod_libro = dato["cod_libro"],
                 tit_libro = dato["tit_libro"],
                 cod_autor_id = dato["cod_autor"],
                 cod_editorial_id = dato["cod_editorial"],
@@ -73,7 +79,7 @@ def agregarEditorial(request):
             dato = json.loads(request.body)
 
             editorial = cat_editoriales(
-                cod_editorial = dato["cod_editorial"],
+                # cod_editorial = dato["cod_editorial"],
                 des_editorial = dato["des_editorial"]
             )
             editorial.save()
@@ -90,7 +96,7 @@ def agregarAutor(request):
             dato = json.loads(request.body)
 
             autor = cat_autores(
-                cod_autor = dato["cod_autor"],
+                # cod_autor = dato["cod_autor"],
                 des_autor = dato["des_autor"]
             )
             autor.save()
@@ -107,7 +113,7 @@ def agregarLibro(request):
             dato = json.loads(request.body)
 
             libros = cat_libros(
-                cod_libro = dato["cod_libro"],
+                # cod_libro = dato["cod_libro"],
                 tit_libro = dato["tit_libro"],
                 cod_autor_id = dato["cod_autor"],
                 cod_editorial_id = dato["cod_editorial"],
@@ -176,7 +182,7 @@ def consultarLibro(request,cod_libro):
 
             return respuesta
         except:
-            return HttpResponseBadRequest("Error en los datos enviados")
+            return HttpResponseBadRequest("Error en retorno de datos")
     else:
         return HttpResponseNotAllowed(["GET"], "Método invalido")
 
@@ -217,7 +223,7 @@ def consultarLibros(request):
             print("Aquí se consultan varios libros!")
             return respuesta
         except:
-            return HttpResponseBadRequest("Error en los datos enviados")
+            return HttpResponseBadRequest("Error en retorno de datos")
 
     else:
         return HttpResponseNotAllowed(["GET"], "Método invalido")
