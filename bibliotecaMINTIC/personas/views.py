@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
-from . models import personas
+from . models import cat_personas
 
 def index(request):
     return HttpResponse("PERSONAS")
@@ -10,8 +10,9 @@ def agregarPersona(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            lr_personas = personas(
-                tipo_documento = data["tipo_documento"]
+            lr_personas = cat_personas(
+                 cod_persona    = data["cod_persona"]
+                ,tipo_documento = data["tipo_documento"]
                 ,num_documento  = data["num_documento"]
                 ,nombres        = data["nombres"]
                 ,apellidos      = data["apellidos"]
@@ -21,6 +22,7 @@ def agregarPersona(request):
                 ,des_municipio  = data["des_municipio"]
                 ,email          = data["email"]
                 ,fec_nacimiento = data["fec_nacimiento"]
+                ,fec_ingreso    = data["fec_ingreso"]
                 ,cod_estado_per = data["cod_estado_per"]
             )
             lr_personas.save()
@@ -32,7 +34,7 @@ def agregarPersona(request):
 
 def consultarPersona(request):
     if request.method == 'GET':
-        lr_personas = personas.objects.all()
+        lr_personas = cat_personas.objects.all()
         allPersonasData = []
         for x in lr_personas:
             data = {"cod_persona":x.cod_persona
@@ -46,6 +48,7 @@ def consultarPersona(request):
                     ,"des_municipio":x.des_municipio
                     ,"email":x.email
                     ,"fec_nacimiento":x.fec_nacimiento
+                    ,"fec_ingreso":x.fec_ingreso
                     ,"cod_estado_per":x.cod_estado_per}
             allPersonasData.append(data)
         dataJson = json.dumps(allPersonasData)
