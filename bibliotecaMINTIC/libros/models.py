@@ -5,17 +5,17 @@ from django.db import models
 
 # Create your models here.
 class cat_editoriales(models.Model):
-    cod_editorial = models.AutoField(primary_key=True)
+    cod_editorial = models.IntegerField(primary_key=True)
     des_editorial = models.CharField(max_length=255)
 
 
 class cat_autores(models.Model):
-    cod_autor = models.AutoField(primary_key=True)
+    cod_autor = models.IntegerField(primary_key=True)
     des_autor = models.CharField(max_length=255)
 
 
 class cat_libros(models.Model):
-    cod_libro = models.AutoField(primary_key=True)
+    cod_libro = models.IntegerField(primary_key=True)
     tit_libro = models.CharField(max_length=255)
     cod_autor = models.ForeignKey(cat_autores, on_delete=models.CASCADE, related_name="codigoAutor" )
     cod_editorial = models.ForeignKey(cat_editoriales, related_name="codigoEditorial", on_delete=models.CASCADE)

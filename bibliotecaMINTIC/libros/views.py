@@ -28,8 +28,9 @@ def agregarLibroCompleto(request):
             dato = json.loads(request.body)
             print(dato)
             
+            
             autor = cat_autores(
-                # cod_autor = dato["cod_autor"],
+                cod_autor = dato["cod_autor"],
                 des_autor = dato["des_autor"]
             )
             autor.save()
@@ -37,7 +38,7 @@ def agregarLibroCompleto(request):
             print("AUTORES")
 
             editorial = cat_editoriales(
-                # cod_editorial = dato["cod_editorial"],
+                cod_editorial = dato["cod_editorial"],
                 des_editorial = dato["des_editorial"]
             )
             editorial.save()
@@ -45,18 +46,19 @@ def agregarLibroCompleto(request):
             print("EDITORIAL")
 
             libros = cat_libros(
-                # cod_libro = dato["cod_libro"],
+                cod_libro = dato["cod_libro"],
                 tit_libro = dato["tit_libro"],
                 cod_autor_id = dato["cod_autor"],
                 cod_editorial_id = dato["cod_editorial"],
                 anio = dato["anio"],
                 tema = dato["tema"],
                 cant_plu = dato["cant_plu"],
-                cant_disponible = dato["cant_disponible_libros"]
+                cant_disponible = dato["cant_disponible"]
             )
+            print("LIBRO ANTES DE GUARDAR")
             libros.save()
 
-            print("LIBROS")
+            print("LIBRO DESPUES DE GUARDADO")
 
             libros_plu = cat_libros_plu(
                 cod_libro_id = dato["cod_libro"],
@@ -66,7 +68,7 @@ def agregarLibroCompleto(request):
             libros_plu.save()
 
             print("PLU")
-
+            #esta respuesta la recoge data en el js.
             return HttpResponse("Agregando Libro Completo... \nLibro Completo agregado")
         except:
             return HttpResponseBadRequest("Error en los datos enviados")
@@ -79,7 +81,7 @@ def agregarEditorial(request):
             dato = json.loads(request.body)
 
             editorial = cat_editoriales(
-                # cod_editorial = dato["cod_editorial"],
+                cod_editorial = dato["cod_editorial"],
                 des_editorial = dato["des_editorial"]
             )
             editorial.save()
@@ -94,9 +96,10 @@ def agregarAutor(request):
     if (request.method == "POST"):
         try:
             dato = json.loads(request.body)
+            print(dato);
 
             autor = cat_autores(
-                # cod_autor = dato["cod_autor"],
+                cod_autor = dato["cod_autor"],
                 des_autor = dato["des_autor"]
             )
             autor.save()
@@ -111,16 +114,17 @@ def agregarLibro(request):
     if (request.method == "POST"):
         try:
             dato = json.loads(request.body)
+            print(dato);
 
             libros = cat_libros(
-                # cod_libro = dato["cod_libro"],
+                cod_libro = dato["cod_libro"],
                 tit_libro = dato["tit_libro"],
                 cod_autor_id = dato["cod_autor"],
                 cod_editorial_id = dato["cod_editorial"],
                 anio = dato["anio"],
                 tema = dato["tema"],
                 cant_plu = dato["cant_plu"],
-                cant_disponible = dato["cant_disponible_libros"]
+                cant_disponible = dato["cant_disponible"]
             )
             libros.save()
 
