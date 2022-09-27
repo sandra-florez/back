@@ -33,7 +33,9 @@ def agregarLibroCompleto(request):
                 cod_autor = dato["cod_autor"],
                 des_autor = dato["des_autor"]
             )
+            #Validar si autos-editorial ya existen.
             autor.save()
+
 
             print("AUTORES")
 
@@ -159,11 +161,8 @@ def consultarLibro(request,cod_libro):
     if (request.method == "GET"):
         try:
             libro = cat_libros.objects.filter(cod_libro = cod_libro).first()
-
             editorial = cat_editoriales.objects.filter(cod_editorial = libro.cod_editorial_id).first()
             autor = cat_autores.objects.filter(cod_autor = libro.cod_autor_id).first()
-
-            
             datos = {
                 "cod_libro": libro.cod_libro,
                 "tit_libro": libro.tit_libro,
@@ -175,15 +174,11 @@ def consultarLibro(request,cod_libro):
                 "cant_disponible": libro.cant_disponible,
                 "des_editorial": editorial.des_editorial,
                 "des_autor": autor.des_autor
-
-
             }
             datosJson = json.dumps(datos)
-
             respuesta=HttpResponse()
             respuesta.headers['Content-Type'] = "text/json"
-            respuesta.content = datosJson            
-
+            respuesta.content = datosJson
             return respuesta
         except:
             return HttpResponseBadRequest("Error en retorno de datos")
@@ -223,8 +218,6 @@ def consultarLibros(request):
             respuesta = HttpResponse()
             respuesta.headers['Content-Type'] = "text/json"
             respuesta.content = infoJson
-            # print(infoJson)
-            print("Aquí se consultan varios libros!")
             return respuesta
         except:
             return HttpResponseBadRequest("Error en retorno de datos")
