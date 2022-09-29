@@ -1,9 +1,7 @@
 from django.db import models
-# from bibliotecaMINTIC.libros.models import cat_libros_plu
-# from bibliotecaMINTIC.personas.models import cat_personas
-
 
 # Create your models here.
+
 class mov_enc_recibos(models.Model):
     cod_recibo = models.DecimalField(primary_key=True,max_digits=13, decimal_places=0)
     cod_persona = models.ForeignKey('personas.cat_personas', related_name = "codigoPersonaMov", on_delete=models.RESTRICT)

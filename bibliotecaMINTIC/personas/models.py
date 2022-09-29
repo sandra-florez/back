@@ -9,7 +9,7 @@ class cat_cargos(models.Model):
 
 
 class cat_estados_per(models.Model):
-    cod_estado_per = models.CharField(max_length = 3)
+    cod_estado_per = models.CharField(max_length = 3, primary_key = True)
     des_estado_per = models.CharField(max_length = 45)
     sw_activo = models.SmallIntegerField()
 
@@ -19,18 +19,18 @@ class cat_personas(models.Model):
     num_documento = models.CharField(max_length =25)
     nombres = models.CharField(max_length = 45)
     apellidos = models.CharField(max_length = 45)
-    cod_cargo = models.ForeignKey(cat_cargos, related_name="codigoCargo", on_delete = models.RESTRICT)
-    dirección = models.CharField(max_length = 45)
+    cod_cargo = models.ForeignKey(cat_cargos, related_name="codigoCargo", on_delete = models.CASCADE, default = 20)
+    direccion = models.CharField(max_length = 45)
     tel_movil = models.PositiveIntegerField()
     des_municipio = models.CharField(max_length = 55)
     email = models.EmailField()
     fec_nacimiento = models.DateField()
     fec_ingreso = models.DateField()
-    cod_estado_per = models.ForeignKey(cat_estados_per, related_name="codigoEstadoPersona", on_delete = models.RESTRICT)
+    cod_estado_per = models.ForeignKey(cat_estados_per, related_name="codigoEstadoPersona", on_delete = models.RESTRICT,default='NOR')
 
 
 class cat_accesos(models.Model):
-    cod_persona = models.ForeignKey(cat_personas, related_name = "codigoPersona", on_delete = models.CASCADE)
+    cod_persona = models.ForeignKey(cat_personas, related_name = "codigoPersona", on_delete = models.CASCADE, default = 16)
     login = models.CharField(max_length = 25)
     clave = models.CharField(max_length = 255)
     fec_cambio = models.DateField()
