@@ -250,6 +250,27 @@ def consultarAutor(request,des_autor):
         #Devuelve un 405.
         return HttpResponseNotAllowed(["GET"], "Método invalido")
 
+def consultarEditorial(request,des_editorial):
+    if (request.method == "GET"):
+        try:
+            editoriales = cat_editoriales.objects.filter(des_editorial__icontains=des_editorial)
+            listEditorial = [];
+            for editorial in editoriales:
+              datos = {
+                  "cod_editorial": editorial.cod_editorial,
+                  "des_editorial": editorial.des_editorial
+              }
+              listEditorial.append(datos)
+            datosJson = json.dumps(listEditorial)
+            respuesta=HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = datosJson
+            return respuesta
+        except:
+            return HttpResponseBadRequest("No existe Autor")
+    else:
+        #Devuelve un 405.
+        return HttpResponseNotAllowed(["GET"], "Método invalido")
 
 
 ########################################################################
