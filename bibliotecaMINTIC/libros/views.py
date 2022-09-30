@@ -238,14 +238,14 @@ def consultarAutor(request,des_autor):
                   "des_autor": Autor.des_autor
               }
               listAutor.append(datos)
-            
+            print(listAutor)
             datosJson = json.dumps(listAutor)
             respuesta=HttpResponse()
             respuesta.headers['Content-Type'] = "text/json"
             respuesta.content = datosJson
             return respuesta
         except:
-            return HttpResponseBadRequest("No existe libro")
+            return HttpResponseBadRequest("No existe Autor")
     else:
         #Devuelve un 405.
         return HttpResponseNotAllowed(["GET"], "Método invalido")
