@@ -1,3 +1,5 @@
+from ast import In
+from urllib.request import Request
 from django.shortcuts import render
 import json
 
@@ -157,6 +159,7 @@ def agregarLibroPlu(request):
 ########################################################################
 #                       Métodos GET Libro                              #
 ########################################################################
+
 def consultarLibro(request,cod_libro):
     if (request.method == "GET"):
         try:
@@ -181,9 +184,47 @@ def consultarLibro(request,cod_libro):
             respuesta.content = datosJson
             return respuesta
         except:
-            return HttpResponseBadRequest("Error en retorno de datos")
+            return HttpResponseBadRequest("No existe libro")
     else:
+        #Devuelve un 405.
         return HttpResponseNotAllowed(["GET"], "Método invalido")
+
+#Consultar por titulo
+def consultarLibroNombre(request,tit_libro):
+    if (request.method == "GET"):
+        try:
+            libro = cat_libros.objects.filter(tit_libro__icontains=tit_libro)
+            listLibros = [];
+            for libro in libro:
+            
+              editorial = cat_editoriales.objects.filter(cod_editorial = libro.cod_editorial_id).first()
+              autor = cat_autores.objects.filter(cod_autor = libro.cod_autor_id).first()
+            
+              datos = {
+                  "cod_libro": libro.cod_libro,
+                  "tit_libro": libro.tit_libro,
+                  "cod_autor_id": libro.cod_autor_id,
+                  "cod_editorial_id": libro.cod_editorial_id,
+                  "anio": libro.anio,
+                  "tema": libro.tema,
+                  "cant_plu": libro.cant_plu,
+                  "cant_disponible": libro.cant_disponible,
+                  "des_editorial": editorial.des_editorial,
+                  "des_autor": autor.des_autor
+              }
+              listLibros.append(datos)
+            
+            datosJson = json.dumps(listLibros)
+            respuesta=HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = datosJson
+            return respuesta
+        except:
+            return HttpResponseBadRequest("No existe libro")
+    else:
+        #Devuelve un 405.
+        return HttpResponseNotAllowed(["GET"], "Método invalido")
+
 
 ########################################################################
 #                       Métodos GET Libros                             #
