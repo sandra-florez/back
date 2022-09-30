@@ -14,5 +14,6 @@ urlpatterns = [
     # Rutas GET Libros
     path('consultarLibro/<int:cod_libro>', views.consultarLibro, name='consultarLibro'),
     path('consultarLibroNombre/<str:tit_libro>', views.consultarLibroNombre, name='consultarLibroNombre'),
+    path('consultarAutor/<str:des_autor>', views.consultarAutor, name='consultarAutor'),
     path('consultarLibros', views.consultarLibros, name='consultarLibros'),
 ]

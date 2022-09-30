@@ -193,9 +193,9 @@ def consultarLibro(request,cod_libro):
 def consultarLibroNombre(request,tit_libro):
     if (request.method == "GET"):
         try:
-            libro = cat_libros.objects.filter(tit_libro__icontains=tit_libro)
+            libros = cat_libros.objects.filter(tit_libro__icontains=tit_libro)
             listLibros = [];
-            for libro in libro:
+            for libro in libros:
             
               editorial = cat_editoriales.objects.filter(cod_editorial = libro.cod_editorial_id).first()
               autor = cat_autores.objects.filter(cod_autor = libro.cod_autor_id).first()
@@ -224,6 +224,32 @@ def consultarLibroNombre(request,tit_libro):
     else:
         #Devuelve un 405.
         return HttpResponseNotAllowed(["GET"], "Método invalido")
+
+def consultarAutor(request,des_autor):
+    if (request.method == "GET"):
+        try:
+            Autores = cat_autores.objects.filter(des_autor__icontains=des_autor)
+            print(des_autor);
+            listAutor = [];
+            for Autor in Autores:
+              print(Autor)
+              datos = {
+                  "cod_autor": Autor.cod_autor,
+                  "des_autor": Autor.des_autor
+              }
+              listAutor.append(datos)
+            
+            datosJson = json.dumps(listAutor)
+            respuesta=HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = datosJson
+            return respuesta
+        except:
+            return HttpResponseBadRequest("No existe libro")
+    else:
+        #Devuelve un 405.
+        return HttpResponseNotAllowed(["GET"], "Método invalido")
+
 
 
 ########################################################################
