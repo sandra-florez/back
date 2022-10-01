@@ -72,7 +72,6 @@ def agregarPersona(request):
                 # fec_ingreso    = "2023-09-09",
                 cod_estado_per_id = data["cod_estado_per"]
             )
-            print(lr_personas.fec_ingreso)
             
             lr_personas.save()
             
@@ -233,3 +232,73 @@ def consultarCargo(request, codCargo):
 
     else:
             return HttpResponseNotAllowed(['GET'],"METODO INVALIDO")
+
+def existeUsuario(request, tipoDocumento, numDocumento):
+    if (request.method == 'GET'):
+        try:            
+            lista = cat_personas.objects.filter(tipo_documento = tipoDocumento, num_documento = numDocumento).first()
+            print(lista)
+            
+            data = {
+                "id": lista.cod_persona,
+            }
+            infoJson = json.dumps(data)
+            respuesta = HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = infoJson
+            return respuesta
+        except:
+            return HttpResponseBadRequest("Error en retorno de datos")
+
+    else:
+            return HttpResponseNotAllowed(['GET'],"METODO INVALIDO")
+
+
+
+########################################################################
+#                       Métodos PUT Personas                           #
+########################################################################
+def modificarCargo(request, codCargo):
+    if (request.method == 'PUT'):
+        try:
+            lista = list(cat_cargos.objects.filter(cod_cargo = codCargo).values())
+            if len(lista) > 0:
+                dato = json.loads(request.body)
+
+                camposDB = cat_cargos.objects.get(cod_cargo = codCargo)
+                camposDB.des_cargo = dato["des_cargo"]
+                camposDB.cod_estado = dato["cod_estado"]
+                camposDB.sw_empleado = dato["sw_empleado"]
+
+                camposDB.save()
+
+                return HttpResponse("MODIFICANDO CARGO ... \CARGO MODIFICADO")
+            else:
+                return HttpResponseBadRequest("No existe Cargo a modificar")
+        
+        except:
+            return HttpResponseBadRequest("No se puede modificar el cargo o el cargo no existe.")
+
+    else:
+            return HttpResponseNotAllowed(['PUT'],"METODO INVALIDO")
+
+
+########################################################################
+#                      Métodos DELETE Personas                         #
+########################################################################
+def eliminarCargo(request, codCargo):
+    if (request.method == 'DELETE'):
+        try:
+            lista = list(cat_cargos.objects.filter(cod_cargo = codCargo).values())
+            if len(lista) > 0:
+                cat_cargos.objects.filter(cod_cargo = codCargo).delete()
+
+                return HttpResponse("ELIMINANDO CARGO ... \CARGO ELIMINADO")
+            else:
+                return HttpResponseBadRequest("No existe Cargo a eliminar")
+        
+        except:
+            return HttpResponseBadRequest("No se puede eliminar el cargo o el cargo no existe.")
+
+    else:
+            return HttpResponseNotAllowed(['DELETE'],"METODO INVALIDO")

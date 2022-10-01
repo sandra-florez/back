@@ -11,9 +11,15 @@ urlpatterns = [
     
     path('consultarCargos', views.consultarCargos, name='consultarCargos'),
     path('consultarCargo/<int:codCargo>', views.consultarCargo, name='consultarCargo'),
+    path('existeUsuario/<str:tipoDocumento>/<str:numDocumento>', views.existeUsuario, name='existeUsuario'),
     # POST
     path('agregarPersona', views.agregarPersona, name='agregarPersona'),
     path('agregarCargo', views.agregarCargo, name='agregarCargo'),
     path('agregarEstadoPersona', views.agregarEstadoPersona, name='agregarEstadoPersona'),
-    path('agregarAcceso', views.agregarAcceso, name='agregarAcceso')
+    path('agregarAcceso', views.agregarAcceso, name='agregarAcceso'),
+
+    # PUT
+    path('modificarCargo/<int:codCargo>', views.modificarCargo, name='modificarCargo'),
+    # DELETE
+    path('eliminarCargo/<int:codCargo>', views.eliminarCargo, name='eliminarCargo'),
 ]
