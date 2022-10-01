@@ -114,30 +114,122 @@ def agregarAcceso(request):
 #                       Métodos GET Personas                           #
 ########################################################################
 
-def consultarPersona(request):
-    if request.method == 'GET':
-        lr_personas = cat_personas.objects.all()
-        allPersonasData = []
-        for x in lr_personas:
-            data = {"cod_persona":x.cod_persona
-                    ,"tipo_documento":x.tipo_documento
-                    ,"num_documento":x.num_documento
-                    ,"nombres":x.nombres
-                    ,"apellidos":x.apellidos
-                    ,"cod_cargo":x.cod_cargo
-                    ,"direccion":x.direccion
-                    ,"tel_movil":x.tel_movil
-                    ,"des_municipio":x.des_municipio
-                    ,"email":x.email
-                    ,"fec_nacimiento":x.fec_nacimiento
-                    ,"fec_ingreso":x.fec_ingreso
-                    ,"cod_estado_per":x.cod_estado_per}
-            allPersonasData.append(data)
-        dataJson = json.dumps(allPersonasData)
-        print(dataJson)
-        resp = HttpResponse()
-        resp.headers['Content-type'] = "text/json"
-        resp.content = dataJson
-        return HttpResponse(resp)
+def consultarPersonas(request):
+    if (request.method == 'GET'):
+        try:
+            lr_personas = cat_personas.objects.all()
+            allPersonasData = []
+            for x in lr_personas:
+                data = {
+                    "cod_persona":x.cod_persona,
+                    "tipo_documento":x.tipo_documento,
+                    "num_documento":x.num_documento,
+                    "nombres":x.nombres,
+                    "apellidos":x.apellidos,
+                    "cod_cargo":x.cod_cargo_id,
+                    "direccion":x.direccion,
+                    "tel_movil":x.tel_movil,
+                    "des_municipio":x.des_municipio,
+                    "email":x.email,
+                    "fec_nacimiento":x.fec_nacimiento.strftime("%Y-%m-%d"),
+                    "fec_ingreso":x.fec_ingreso.strftime("%Y-%m-%d"),
+                    "cod_estado_per":x.cod_estado_per_id
+                }
+                
+                allPersonasData.append(data)
+            infoJson = json.dumps(allPersonasData)
+            respuesta = HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = infoJson
+            return respuesta
+        
+        except:
+            return HttpResponseBadRequest("Error en retorno de datos")
+
     else:
-        return HttpResponseNotAllowed(['GET'],"METODO INVALIDO")
+            return HttpResponseNotAllowed(['GET'],"METODO INVALIDO")
+
+def consultarPersona(request, NumDocumento):
+    if(request.method == "GET"):
+        try:
+            # personas = cat_personas.objects.filter(num_documento__icontains = NumDocumento)
+            personas = cat_personas.objects.filter(num_documento = NumDocumento)
+            listPersonas = [];
+            for x in personas:
+                data = {
+                    "cod_persona":x.cod_persona,
+                    "tipo_documento":x.tipo_documento,
+                    "num_documento":x.num_documento,
+                    "nombres":x.nombres,
+                    "apellidos":x.apellidos,
+                    "cod_cargo":x.cod_cargo_id,
+                    "direccion":x.direccion,
+                    "tel_movil":x.tel_movil,
+                    "des_municipio":x.des_municipio,
+                    "email":x.email,
+                    "fec_nacimiento":x.fec_nacimiento.strftime("%Y-%m-%d"),
+                    "fec_ingreso":x.fec_ingreso.strftime("%Y-%m-%d"),
+                    "cod_estado_per":x.cod_estado_per_id
+                }
+                listPersonas.append(data)
+            infoJson = json.dumps(listPersonas)
+            respuesta = HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = infoJson
+            return respuesta
+        except:
+            return HttpResponseBadRequest("No existe libro")
+    else:
+        return HttpResponseNotAllowed(["GET"], "Método invalido")
+
+def consultarCargos(request):
+    if (request.method == 'GET'):
+        try:
+            listaCargos = cat_cargos.objects.all()
+            allCargos = []
+            for x in listaCargos:
+                data = {
+                    "cod_cargo":x.cod_cargo,
+                    "des_cargo":x.des_cargo,
+                    "cod_estado":x.cod_estado,
+                    "sw_empleado":x.sw_empleado
+                }
+                
+                allCargos.append(data)
+            infoJson = json.dumps(allCargos)
+            respuesta = HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = infoJson
+            return respuesta
+        
+        except:
+            return HttpResponseBadRequest("Error en retorno de datos")
+
+    else:
+            return HttpResponseNotAllowed(['GET'],"METODO INVALIDO")
+
+def consultarCargo(request, codCargo):
+    if (request.method == 'GET'):
+        try:
+            listaCargos = cat_cargos.objects.filter(cod_cargo = codCargo)
+            allCargos = []
+            for x in listaCargos:
+                data = {
+                    "cod_cargo":x.cod_cargo,
+                    "des_cargo":x.des_cargo,
+                    "cod_estado":x.cod_estado,
+                    "sw_empleado":x.sw_empleado
+                }
+                
+                allCargos.append(data)
+            infoJson = json.dumps(allCargos)
+            respuesta = HttpResponse()
+            respuesta.headers['Content-Type'] = "text/json"
+            respuesta.content = infoJson
+            return respuesta
+        
+        except:
+            return HttpResponseBadRequest("Error en retorno de datos")
+
+    else:
+            return HttpResponseNotAllowed(['GET'],"METODO INVALIDO")
