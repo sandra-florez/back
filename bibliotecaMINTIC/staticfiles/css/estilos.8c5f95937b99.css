@@ -1,0 +1,265 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #e6e6e6;
+	margin:0;
+	font-family:Arial
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: #F08838;
+  }
+  
+  .topnav a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+  }
+  
+  .active {
+	background-color: #F08838;
+	color: white;
+  }
+  
+  .topnav .icon {
+	display: none;
+  }
+  
+  .dropdown {
+	float: left;
+	overflow: hidden;
+  }
+  
+  .dropdown .dropbtn {
+	font-size: 17px;    
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+  }
+  
+  .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+  }
+  
+  .dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+  }
+  
+  .topnav a:hover, .dropdown:hover .dropbtn {
+	background-color: #555;
+	color: white;
+  }
+  
+  .dropdown-content a:hover {
+	background-color: #ddd;
+	color: black;
+  }
+  
+  .dropdown:hover .dropdown-content {
+	display: block;
+  }
+  
+  @media screen and (max-width: 600px) {
+	.topnav a:not(:first-child), .dropdown .dropbtn {
+	  display: none;
+	}
+	.topnav a.icon {
+	  float: right;
+	  display: block;
+	}
+  }
+  
+  @media screen and (max-width: 600px) {
+	.topnav.responsive {position: relative;}
+	.topnav.responsive .icon {
+	  position: absolute;
+	  right: 0;
+	  top: 0;
+	}
+	.topnav.responsive a {
+	  float: none;
+	  display: block;
+	  text-align: left;
+	}
+	.topnav.responsive .dropdown {float: none;}
+	.topnav.responsive .dropdown-content {position: relative;}
+	.topnav.responsive .dropdown .dropbtn {
+	  display: block;
+	  width: 100%;
+	  text-align: left;
+	}
+  }
+
+header,
+footer {
+  background: #1f45fc;
+  width: 90%;
+  margin: 20px auto;
+}
+
+.contenedor {
+  background: white;
+  width: 90%;
+  margin: 20px auto;
+  height: 300px;
+}
+
+.contenedor #main {
+  width: 69.1%;
+  height: 100%;
+  margin-right: 0.9%;
+  padding: 20px;
+  float: left;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.contenedor aside {
+  width: 30%;
+  float: left;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+footer {
+  background: #1f45fc;
+  color: white;
+  text-align: center;
+  clear: both;
+  padding: 10px 0px;
+}
+
+/*FORM INGRESO INICIO*/
+
+aside h2 {
+  text-align: center;
+  margin-bottom: 5px;
+}
+form label {
+  display: block;
+  width: 100%;
+}
+
+form textarea {
+  resize: vertical;
+  max-height: 300px;
+  min-height: 100px;
+}
+
+form input {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+}
+
+form input:focus,
+textarea:focus {
+  border: 1px solid white;
+}
+
+form input[type="submit"] {
+  margin-bottom: 0;
+  background: #f8f6f0;
+  border: none;
+  box-shadow: 3px 3px 2px #c0c0c0;
+}
+form input[type="submit"]:hover {
+  background: #b6b6b4;
+  cursor: pointer;
+}
+
+/********************************/
+/*Estilos para tabla*/
+/********************************/
+.table_lista {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+table tr:nth-child(1) {
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  background-color: #000;
+  text-transform: uppercase;
+}
+
+table td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+table tr:hover {
+  background: #c6e9fe;
+}
+
+table td:hover {
+  background: #dbdbdb;
+  color: black;
+}
+.nombre_pagina
+{
+  color: white;
+  display: inline-block;
+  font-size: 80px;
+  padding-left: 22%;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+.logo
+{
+  display: -webkit-inline-box;
+}
+
+.logo_responsive{
+  max-width: 100%;
+  height:auto;
+}
+.PortadaInicio
+{
+  background-image: url("../Imagenes/LibreriaCaricatura.828882fc8ed1.png");
+  background-repeat: repeat;
+  max-width: 100%;
+  max-height: auto;
+  background-size: contain;
+  opacity: 50%;
+}
+.Texto_Inicio
+{
+  opacity: 100%;
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  /* -webkit-text-stroke: 2px black; */
+}
